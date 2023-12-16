@@ -2,7 +2,14 @@ using UnityEngine;
 
 public class PlayerMover : MonoBehaviour
 {
+    [SerializeField] Transform cameraTransform;
     [SerializeField] float speed;
+
+    private void OnValidate()
+    {
+        if (cameraTransform == null)
+            cameraTransform = Camera.main.transform;
+    }
 
 
     void Update()
@@ -10,10 +17,15 @@ public class PlayerMover : MonoBehaviour
         float x = Input.GetAxisRaw("Horizontal");
         float z = Input.GetAxisRaw("Vertical");
 
+        Vector3 cameraForward = cameraTransform.forward;
+        Vector3 cameraRight = cameraTransform.right;
 
-        Vector3 directionVector = new(x, 0, z);             //Max 1 hosszú
+        Vector3 directionVector = cameraForward * z + cameraRight * x;                  //Kamerához képesti
+        directionVector.y = 0;
+        // Vector3 directionVector = new(x, 0, z);                                      //Max 1 hosszú , GLOBÁLIS
+
         directionVector.Normalize();
-        Vector3 velocityVector = directionVector * speed;   //Irányt és hosszt is tartalmaz
+        Vector3 velocityVector = directionVector * speed;                               //Irányt és hosszt is tartalmaz
 
         transform.position += velocityVector * Time.deltaTime;
 

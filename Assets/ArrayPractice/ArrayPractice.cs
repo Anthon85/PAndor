@@ -44,4 +44,45 @@ public class ArrayPractice : MonoBehaviour
             array4[i] = (i + 1) * 3;
         }
     }
+    float GetMean(float[] numbers) //Homework1
+    {
+        float accumulator = 0;
+
+        for (int i = 0; i < numbers.Length; i++)
+        {
+            accumulator += numbers[i];
+        }
+
+        return accumulator / numbers.Length;
+    }
+
+    void Reverse(int[] numbers) 
+    {
+        for (int i = 0; i < numbers.Length/2; i++) //HW2
+        {
+            int a = numbers[i];
+            int b = numbers[^(1 + i)];
+
+            numbers[i] = b;
+            numbers[^(1 + i)] = a;
+        }
+    }
+
+    long[] GetFibonacci(long length)
+    {
+        long[] array = new long[length];
+
+        if (length >= 1)
+            array[0] = 0;
+
+        if (length >= 2)
+            array[1] = 1;
+
+        for (int i = 2; i < length; i++)
+        {
+            array[i] = array[i - 1] + array[i - 2];
+        }
+        return array;
+    }
+
 }
